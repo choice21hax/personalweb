@@ -1,139 +1,81 @@
-# Website Development Roadmap
+# Roadmap for Choice's Cave
 
-This roadmap outlines the steps to create a minimalistic website to host URLs for accessing nodes, a file upload feature with size limits, and a software page for open-source software. The site will feature a black-and-white theme with custom logos for navigation links.
+**Website Purpose**  
+Choice's Cave is a black-and-white, minimalistic website for managing and accessing nodes, notes, and AI tools in a dark theme. Designed for low-end devices, the website will provide a seamless experience, allowing access to nodes, Tmate sessions, and an existing SSH manager, with deployment to Tinkerhost.
 
-## Table of Contents
+## Tech Stack
+- **Frontend**: HTML, CSS (Tailwind, Flexbox), JavaScript with GSAP, React, Vue
+- **Backend**: Express.js
+- **Database**: MySQL
+- **Hosting**: Tinkerhost
+- **Theme**: Dark theme with black-and-white minimalism
 
-- [1. Project Setup](#1-project-setup)
-- [2. Design and Layout](#2-design-and-layout)
-- [3. Implementing Navigation](#3-implementing-navigation)
-- [4. Creating the Node URLs Page](#4-creating-the-node-urls-page)
-- [5. File Upload Feature](#5-file-upload-feature)
-- [6. Software Page for Open Source Software](#6-software-page-for-open-source-software)
-- [7. Styling the Website](#7-styling-the-website)
-- [8. Testing](#8-testing)
-- [9. Deployment](#9-deployment)
+---
 
-## 1. Project Setup
+## Project Phases
 
-- **Choose a Technology Stack**:
-  - Frontend: HTML, CSS, JavaScript (or a framework like React or Vue.js).
-  - Backend: Node.js with Express or a simple PHP server.
-  - Database: Use a lightweight database like SQLite or a file storage system for uploads.
+### Phase 1: Initial Setup
+- **Project Structure**: Set up a structured repository.
+- **Tinkerhost Configuration**: Prepare initial deployment settings to ensure compatibility with Tinkerhost.
+- **Basic UI Framework**: 
+  - Use HTML, Tailwind CSS, and Flexbox for a minimal, responsive layout.
+  - Establish the dark theme with black and white as core colors.
+  - Add global styling for consistent typography and component spacing.
 
-- **Initialize the Project**:
-  - Create a project directory and initialize with Git.
-  - Set up a basic file structure:
-    ```
-    /project-directory
-      ├── /public
-      │   ├── index.html
-      │   ├── style.css
-      │   └── script.js
-      ├── /uploads
-      ├── /softwares
-      ├── server.js (or index.php)
-      └── README.md
-    ```
+### Phase 2: Node List Page
+- **Node Display**: Create a list view to display all nodes neatly.
+- **Tmate Integration**: 
+  - Allow users to link nodes directly to Tmate sessions.
+  - Accept URL inputs for each node for easy Tmate session access.
+- **SSH Manager Link**: 
+  - Embed a link to the external SSH manager site for quick access.
 
-## 2. Design and Layout
+### Phase 3: Notes Page
+- **Notes Management**:
+  - Add a dedicated notes page with CRUD (Create, Read, Update, Delete) functionality.
+  - Connect the notes to MySQL to save and retrieve important user notes.
+- **UI/UX**: Design with minimalism, using Tailwind and React for a smooth and responsive experience.
 
-- **Wireframe the Layout**:
-  - Create a simple layout sketch, including header, main content area, and footer.
-  - Ensure navigation links are prominently displayed.
+### Phase 4: AI Panel Integration
+- **AI Panel Setup**:
+  - Create a panel for API-powered AI interaction (e.g., ChatGPT) to assist users.
+  - Use API keys to link to OpenAI or similar, ensuring secure usage.
+  - Include UI components with Vue or React for dynamic interaction.
+- **UX Optimization**: Ensure smooth AI response times on low-end devices.
 
-- **Define Page Structure**:
-  - Home Page: Links to nodes, file upload, and software.
-  - File Upload Page: Interface for users to upload files.
-  - Software Page: List of open-source software links.
+### Phase 5: Final Touches and Testing
+- **Responsive Design Optimization**:
+  - Thoroughly test the UI on Chromebooks and other low-end devices.
+  - Adjust animations (with GSAP) to ensure smooth, resource-efficient operation.
+- **Cross-Browser Testing**: Ensure compatibility with major browsers, especially Chrome on Chromebooks.
+- **Deploy to Tinkerhost**: Perform the final deployment on Tinkerhost, testing functionality end-to-end.
 
-## 3. Implementing Navigation
+### Phase 6: Future Enhancements
+- **User Authentication**: Implement a simple login system for secure access.
+- **Expanded Notes Feature**: Add tags and categorization for easier organization.
+- **Additional Integrations**: Consider extending the AI panel for additional use cases (e.g., node management support).
 
-- **Header with Custom Logos**:
-  - Create an HTML header with navigation links:
-    ```html
-    <header>
-      <a href="index.html"><img src="path/to/home-logo.png" alt="Home"></a>
-      <a href="nodes.html"><img src="path/to/nodes-logo.png" alt="Nodes"></a>
-      <a href="drive.html"><img src="path/to/drive-logo.png" alt="Drive"></a>
-      <a href="software.html"><img src="path/to/github-logo.png" alt="GitHub"></a>
-    </header>
-    ```
+---
 
-## 4. Creating the Node URLs Page
+## Milestones
+1. **Basic UI & Dark Theme** - Completion Target: Month 1, Week 1
+2. **Node List Page & Tmate Session Links** - Completion Target: Month 1, Week 2
+3. **Notes Page Integration** - Completion Target: Month 1, Week 3
+4. **AI Panel Integration** - Completion Target: Month 1, Week 4
+5. **Final Testing and Deployment** - Completion Target: Month 2, Week 1
 
-- **Node URLs Page**:
-  - Create a `nodes.html` page that lists URLs to access your nodes.
-  - Use a simple list or grid layout for easy navigation.
+---
 
-## 5. File Upload Feature
+## Notes
+- Focus on lightweight design and efficiency to ensure smooth performance on low-end devices.
+- Each phase should be thoroughly tested on a Chromebook emulator for compatibility.
+- Documentation should be maintained throughout for ease of future enhancements.
 
-- **Create File Upload Form**:
-  - In `drive.html`, create an HTML form for file uploads:
-    ```html
-    <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="file" required>
-      <button type="submit">Upload</button>
-    </form>
-    ```
+---
 
-- **Backend Handling**:
-  - Set up backend logic to handle file uploads and enforce a 5GB limit using file size checks.
-  - Store uploaded files in the `/uploads` directory.
+**Author**: 21Studios / choice21
 
-## 6. Software Page for Open Source Software
+---
 
-- **Software Page**:
-  - Create a `software.html` page listing various open-source software options.
-  - Use cards or a table format to present the software with descriptions and links.
-
-## 7. Styling the Website
-
-- **CSS for Black and White Theme**:
-  - Write CSS in `style.css` to ensure a clean, minimalistic design:
-    ```css
-    body {
-      background-color: #fff;
-      color: #000;
-      font-family: Arial, sans-serif;
-    }
-    header {
-      background-color: #000;
-      color: #fff;
-      padding: 10px;
-      text-align: center;
-    }
-    a img {
-      width: 30px; /* Adjust size as needed */
-      margin: 0 10px;
-    }
-    ```
-
-## 8. Testing
-
-- **Cross-Browser Testing**:
-  - Test the website across different browsers (Chrome, Firefox, Safari).
-  
-- **File Upload Testing**:
-  - Ensure file uploads function correctly and limit users to 5GB.
-
-- **Responsiveness**:
-  - Check the website on various devices (desktop, tablet, mobile).
-
-## 9. Deployment
-
-- **Choose a Hosting Service**:
-  - Use a hosting provider that supports your chosen tech stack (e.g., Heroku, DigitalOcean, or a shared hosting service).
-
-- **Deploy the Website**:
-  - Upload your project files to the hosting service.
-  - Configure the server settings for file uploads and routing.
-
-- **Monitor and Maintain**:
-  - Regularly check for user feedback and update the site as needed.
-
-## Conclusion
-
-This roadmap provides a structured approach to creating a minimalistic website with the desired features. Regularly update your progress and adjust the plan as necessary. Good luck with your project!
-
-For any questions or collaborations, please contact [your_email@example.com].
+## Ignore
+- chicken wing chicken wing hotdog and 
