@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monero Miner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        input, button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+        #status.stopped {
+            color: #FF5722;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monero Miner</h1>
+        <p>Enter your Monero wallet and mining pool details</p>
+
+        <!-- Input for Wallet Address -->
+        <input type="text" id="walletAddress" placeholder="Enter Monero Wallet Address" required>
+
+        <!-- Input for Mining Pool -->
+        <input type="text" id="poolAddress" placeholder="Enter Pool Address (e.g., pool.minexmr.com:4444)" required>
+
+        <button id="startButton">Start Mining</button>
+        <button id="stopButton" style="display: none;">Stop Mining</button>
+        <div id="status" class="stopped">Mining is OFF</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/monero-miner@1.0.1/monero-miner.js"></script>
+    <script>
+        let miner;
+        let isMining = false;
+
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const status = document.getElementById('status');
+        const walletInput = document.getElementById('walletAddress');
+        const poolInput = document.getElementById('poolAddress');
+
+        // Start mining
+        startButton.addEventListener('click', () => {
+            const walletAddress = walletInput.value.trim();
+            const poolAddress = poolInput.value.trim();
+
+            if (!walletAddress || !poolAddress) {
+                alert('Please enter both your Monero wallet address and a mining pool address.');
+                return;
+            }
+
+            // Initialize the miner with the wallet and pool address
+            miner = new Miner(poolAddress.split(":")[0], parseInt(poolAddress.split(":")[1]), walletAddress);
+
+            if (!isMining) {
+                miner.start();
+                isMining = true;
+                startButton.style.display = 'none';
+                stopButton.style.display = 'inline-block';
+                status.textContent = 'Mining is ON';
+                status.classList.remove('stopped');
+            }
+        });
+
+        // Stop mining
+        stopButton.addEventListener('click', () => {
+            if (isMining) {
+                miner.stop();
+                isMining = false;
+                stopButton.style.display = 'none';
+                startButton.style.display = 'inline-block';
+                status.textContent = 'Mining is OFF';
+                status.classList.add('stopped');
+            }
+        });
+    </script>
+</body>
+</html>
